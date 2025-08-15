@@ -2,6 +2,7 @@ import './style.css'
 import * as THREE from 'three'
 import {OrbitControls} from 'three/addons/controls/OrbitControls.js'
 import States from 'three/addons/libs/stats.module.js'
+import {GUI} from 'dat.gui'
 
 const scene = new THREE.Scene();
 
@@ -30,12 +31,27 @@ scene.add(cube)
 const stats = new States();
 stats.showPanel(1);
 document.body.appendChild(stats.dom);
+
+const gui = new GUI();
+// gui.add(cube.rotation, 'x', 0, Math.PI * 2)
+
+const cubeFolder = gui.addFolder('Cube')
+cubeFolder.add(cube.rotation, 'x', 0, Math.PI * 2)
+cubeFolder.add(cube.rotation, 'y', 0, Math.PI * 2)
+cubeFolder.add(cube.rotation, 'z', 0, Math.PI * 2)
+cubeFolder.open()
+
+const cameraFolder = gui.addFolder('Camera')
+cameraFolder.add(camera.position, 'x', 0, 20)
+cameraFolder.add(camera.position, 'y', 0, 20)
+cameraFolder.add(camera.position, 'z', 0, 20)
+cameraFolder.open()
 function animate() {
   requestAnimationFrame(animate)
 
   // stats.begin();
-  cube.rotation.x += 0.01
-  cube.rotation.y += 0.01
+  // cube.rotation.x += 0.01
+  // cube.rotation.y += 0.01
   // stats.end();
 
   renderer.render(scene, camera)
